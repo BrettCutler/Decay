@@ -1,0 +1,4 @@
+*.suo
+*.csproj
+*.sln
+Temp/

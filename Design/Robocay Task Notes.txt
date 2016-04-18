@@ -1,0 +1,22 @@
+Robocay Task Notes
+======================
+
+Voxel
+--------------
+* finish tutorial
+* modify y-size to .33, or .25
+    * places to add scalar:
+        * World.cs
+            * CreateChunk at position, pos.y needs to be scaled when Instantiating
+        * WorldPos.cs
+            * I don't think this refers to *literal* position, just index position
+        * Block.cs
+            * FaceData[North/South/etc]() generates vertices; scale y
+            *
+        * Terrain.cs
+            * GetBlockPos( Vector3 pos ):
+                Grabs WorldPos directly from Vector3 which is rounded
+                * So here we need an extra conversion
+                    * And clarify names: WorldPos is either truly position in WorldSpace (rename: WorldSpacePos) or is block index across entire world (rename: WorldBlockIndexPos)
+
+* Wrap all voxel classes in a namespace
