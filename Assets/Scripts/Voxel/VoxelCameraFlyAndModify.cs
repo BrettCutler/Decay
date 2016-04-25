@@ -1,29 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class VoxelCameraFlyAndModify : MonoBehaviour
+namespace Voxel
 {
-  Vector2 rot;
-
-  void Update()
+  public class VoxelCameraFlyAndModify : MonoBehaviour
   {
-    if( Input.GetKeyDown(KeyCode.Space))
+    Vector2 rot;
+
+    void Update( )
     {
-      RaycastHit hit;
-      if( Physics.Raycast(transform.position, transform.forward, out hit, 100f ) )
+      if( Input.GetKeyDown( KeyCode.Space ) )
       {
-        Terrain.SetBlock( hit, new BlockAir( ) );
+        RaycastHit hit;
+        if( Physics.Raycast( transform.position, transform.forward, out hit, 100f ) )
+        {
+          EditTerrain.SetBlock( hit, new BlockAir( ) );
+        }
       }
+
+      rot = new Vector2(
+        rot.x + Input.GetAxis( "Mouse X" ) * 3,
+        rot.y + Input.GetAxis( "Mouse Y" ) * 3 );
+
+      transform.localRotation = Quaternion.AngleAxis( rot.x, Vector3.up );
+      transform.localRotation *= Quaternion.AngleAxis( rot.y, Vector3.left );
+
+      transform.position += transform.forward * 3 * Input.GetAxis( "Vertical" );
+      transform.position += transform.right * 3 * Input.GetAxis( "Horizontal" );
     }
-
-    rot = new Vector2(
-      rot.x + Input.GetAxis( "Mouse X" ) * 3,
-      rot.y + Input.GetAxis( "Mouse Y" ) * 3 );
-
-    transform.localRotation = Quaternion.AngleAxis( rot.x, Vector3.up );
-    transform.localRotation *= Quaternion.AngleAxis( rot.y, Vector3.left );
-
-    transform.position += transform.forward * 3 * Input.GetAxis( "Vertical" );
-    transform.position += transform.right * 3 * Input.GetAxis( "Horizontal" );
   }
 }

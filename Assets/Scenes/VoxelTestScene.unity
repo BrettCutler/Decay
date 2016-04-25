@@ -272,6 +272,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ChunkPrefab: {fileID: 180312, guid: 47280cea03541574eae6f87fce25ae0d, type: 2}
+  m_GenerateRandomTerrain: 1
+  m_WorldName: World
+  d_NewChunkX: 0
+  d_NewChunkY: 0
+  d_NewChunkZ: 0
+  d_GenChunk: 0
 --- !u!4 &590933990
 Transform:
   m_ObjectHideFlags: 0

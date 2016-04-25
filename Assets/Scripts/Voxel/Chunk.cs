@@ -1,155 +1,186 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/// <summary>
-/// Collection of blocks
-/// </summary>
-[RequireComponent(typeof(MeshFilter))]
-[RequireComponent(typeof(MeshRenderer))]
-[RequireComponent(typeof(MeshCollider))]
-public class Chunk : MonoBehaviour
+namespace Voxel
 {
   /// <summary>
-  /// Flag: do we need to update the Chunk?
+  /// Collection of blocks
   /// </summary>
-  public bool m_Update = true;
-
-  public World m_World;
-  public WorldPos m_Pos;
-  
-  public Block[ , , ] m_Blocks = new Block[k_ChunkSize, k_ChunkSize, k_ChunkSize];
-
-  private MeshFilter m_Filter;
-  private MeshCollider m_Collider;
-
-  /// <summary>
-  /// Number of blocks in a chunk dimension.
-  /// Total blocks = m_ChunkSize ^ 3
-  /// </summary>
-  public static int k_ChunkSize = 16;
-
-  private void Awake()
+  [RequireComponent( typeof( MeshFilter ) )]
+  [RequireComponent( typeof( MeshRenderer ) )]
+  [RequireComponent( typeof( MeshCollider ) )]
+  public class Chunk : MonoBehaviour
   {
-    m_Filter = gameObject.GetComponent<MeshFilter>();
-    m_Collider = gameObject.GetComponent<MeshCollider>();
+    /// <summary>
+    /// Flag: do we need to update the Chunk?
+    /// </summary>
+    public bool m_Update = false;
 
-    //SetupExampleChunk();
-  }
+    public  bool m_Rendered;
 
-  private void Update()
-  {
-    if( m_Update )
+    public World m_World;
+    public WorldPos m_Pos;
+
+    public Block[ , , ] m_Blocks = new Block[k_ChunkSize, k_ChunkSize, k_ChunkSize];
+
+    private MeshFilter m_Filter;
+    private MeshCollider m_Collider;
+
+    /// <summary>
+    /// Number of blocks in a chunk dimension.
+    /// Total blocks = m_ChunkSize ^ 3
+    /// </summary>
+    public static int k_ChunkSize = 16;
+
+    private void Awake( )
     {
-      UpdateChunk();
-    }
-  }
+      m_Filter = gameObject.GetComponent<MeshFilter>( );
+      m_Collider = gameObject.GetComponent<MeshCollider>( );
 
-  public Block GetBlock(int x, int y, int z)
-  {
-    if( InRange( x, y, z ) )
-    {
-      return m_Blocks[x, y, z];
+      //SetupExampleChunk();
     }
 
-    // It's not in this chunk, check again up top
-    return m_World.GetBlock( m_Pos.x + x, m_Pos.y + y, m_Pos.z + z );
-  }
-
-  /// <summary>
-  /// Is a coordinate within possible chunk index values?
-  /// </summary>
-  public static bool InRange( int index )
-  {
-    if( index < 0 || index >= k_ChunkSize )
+    private void Update( )
     {
-      return false;
+      if( m_Update )
+      {
+        UpdateChunk( );
+      }
     }
 
-    return true;
-  }
-
-  /// <summary>
-  /// Is a coordinate set within possible chunk index values?
-  /// </summary>
-  public static bool InRange( int x, int y, int z )
-  {
-    return InRange( x ) && InRange( y ) && InRange( z );
-  }
-
-  /// <summary>
-  /// Assign block index in chunk.
-  /// </summary>
-  public void SetBlock( int x, int y, int z, Block block )
-  {
-    if( InRange( x, y, z ) )
+    public Block GetBlock( int x, int y, int z )
     {
-      m_Blocks[x, y, z] = block;
+      if( InRange( x, y, z ) )
+      {
+        return m_Blocks[x, y, z];
+      }
 
-      m_Update = true;
+      // It's not in this chunk, check again up top
+      return m_World.GetBlock( m_Pos.x + x, m_Pos.y + y, m_Pos.z + z );
     }
-    else
+
+    /// <summary>
+    /// Is a coordinate within possible chunk index values?
+    /// </summary>
+    public static bool InRange( int index )
     {
-      m_World.SetBlock( m_Pos.x + x, m_Pos.y + y, m_Pos.z + z, block );
+      if( index < 0 || index >= k_ChunkSize )
+      {
+        return false;
+      }
+
+      return true;
     }
-  }
 
-  /// <summary>
-  /// Updates chunk based on its contents
-  /// </summary>
-  void UpdateChunk()
-  {
-    m_Update = false;
+    /// <summary>
+    /// Is a coordinate set within possible chunk index values?
+    /// </summary>
+    public static bool InRange( int x, int y, int z )
+    {
+      return InRange( x ) && InRange( y ) && InRange( z );
+    }
 
-    MeshData meshData = new MeshData();
+    /// <summary>
+    /// Assign block index in chunk.
+    /// </summary>
+    public void SetBlock( int x, int y, int z, Block block )
+    {
+      if( InRange( x, y, z ) )
+      {
+        m_Blocks[x, y, z] = block;
 
-    for( int x = 0; x < k_ChunkSize; x++ )
-      for( int y = 0; y < k_ChunkSize; y++ )
-        for( int z = 0; z < k_ChunkSize; z++ )
+        m_Update = true;
+      }
+      else
+      {
+        m_World.SetBlock( m_Pos.x + x, m_Pos.y + y, m_Pos.z + z, block );
+      }
+    }
+
+    public static void SetBlock( int x, int y, int z, Block block, Chunk chunk, bool replaceBlocks )
+    {
+      x -= chunk.m_Pos.x;
+      y -= chunk.m_Pos.y;
+      z -= chunk.m_Pos.z;
+
+      if( Chunk.InRange( x ) && Chunk.InRange( y ) && Chunk.InRange( z ) )
+      {
+        if( replaceBlocks || chunk.m_Blocks[x, y, z] == null )
         {
-          meshData = m_Blocks[x, y, z].Blockdata( this, x, y, z, meshData );
+          chunk.SetBlock( x, y, z, block );
         }
+      }
+    }
 
-    RenderMesh( meshData );
-  }
+    /// <summary>
+    /// Updates chunk based on its contents
+    /// </summary>
+    void UpdateChunk( )
+    {
+      m_Update = false;
+      m_Rendered = true;
 
-  /// <summary>
-  /// Sends the calculated mesh information to the mesh and collision components
-  /// </summary>
-  void RenderMesh( MeshData meshData )
-  {
-    // rendering
-    m_Filter.mesh.Clear();
+      MeshData meshData = new MeshData();
 
-    m_Filter.mesh.vertices = meshData.m_Vertices.ToArray();
-    m_Filter.mesh.triangles = meshData.m_Triangles.ToArray();
+      for( int x = 0; x < k_ChunkSize; x++ )
+        for( int y = 0; y < k_ChunkSize; y++ )
+          for( int z = 0; z < k_ChunkSize; z++ )
+          {
+            meshData = m_Blocks[x, y, z].Blockdata( this, x, y, z, meshData );
+          }
 
-    m_Filter.mesh.uv = meshData.m_uv.ToArray();
-    m_Filter.mesh.RecalculateNormals();
+      RenderMesh( meshData );
+    }
 
-    // collision
-    m_Collider.sharedMesh = null;
-    Mesh mesh = new Mesh();
-    mesh.vertices = meshData.m_ColVertices.ToArray();
-    mesh.triangles = meshData.m_ColTriangles.ToArray();
-    mesh.RecalculateNormals();
+    /// <summary>
+    /// Sends the calculated mesh information to the mesh and collision components
+    /// </summary>
+    void RenderMesh( MeshData meshData )
+    {
+      // rendering
+      m_Filter.mesh.Clear( );
 
-    m_Collider.sharedMesh = mesh;
-  }
+      m_Filter.mesh.vertices = meshData.m_Vertices.ToArray( );
+      m_Filter.mesh.triangles = meshData.m_Triangles.ToArray( );
 
-  private void SetupExampleChunk()
-  {
-    m_Blocks = new Block[k_ChunkSize, k_ChunkSize, k_ChunkSize];
+      m_Filter.mesh.uv = meshData.m_uv.ToArray( );
+      m_Filter.mesh.RecalculateNormals( );
 
-    for( int x = 0; x < k_ChunkSize; x++ )
-      for( int y = 0; y < k_ChunkSize; y++ )
-        for( int z = 0; z < k_ChunkSize; z++ )
-        {
-          m_Blocks[x, y, z] = new BlockAir();
-        }
+      // collision
+      m_Collider.sharedMesh = null;
+      Mesh mesh = new Mesh();
+      mesh.vertices = meshData.m_ColVertices.ToArray( );
+      mesh.triangles = meshData.m_ColTriangles.ToArray( );
+      mesh.RecalculateNormals( );
 
-    m_Blocks[3, 5, 2] = new Block();
-    m_Blocks[4, 5, 2] = new BlockGrass();
+      m_Collider.sharedMesh = mesh;
+    }
 
-    UpdateChunk();
+    public void SetBlocksUnmodified( )
+    {
+      for( int x = 0; x < k_ChunkSize; x++ )
+        for( int y = 0; y < k_ChunkSize; y++ )
+          for( int z = 0; z < k_ChunkSize; z++ )
+          {
+            m_Blocks[x, y, z].m_Changed = false;
+          }
+    }
+
+    private void DebugSetupExampleChunk( )
+    {
+      m_Blocks = new Block[k_ChunkSize, k_ChunkSize, k_ChunkSize];
+
+      for( int x = 0; x < k_ChunkSize; x++ )
+        for( int y = 0; y < k_ChunkSize; y++ )
+          for( int z = 0; z < k_ChunkSize; z++ )
+          {
+            m_Blocks[x, y, z] = new BlockAir( );
+          }
+
+      m_Blocks[3, 5, 2] = new Block( );
+      m_Blocks[4, 5, 2] = new BlockGrass( );
+
+      UpdateChunk( );
+    }
   }
 }

@@ -19,4 +19,8 @@ Voxel
                 * So here we need an extra conversion
                     * And clarify names: WorldPos is either truly position in WorldSpace (rename: WorldSpacePos) or is block index across entire world (rename: WorldBlockIndexPos)
 
+        * LoadChunks.cs
+            * FindChunksToLoad(): transforms player's real position into worldPos index
+                * for some reason this seems to assume world's min, max yHeight rather that using player's position to offset...
+
 * Wrap all voxel classes in a namespace
