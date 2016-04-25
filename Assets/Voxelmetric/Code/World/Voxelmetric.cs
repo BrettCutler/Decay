@@ -9,32 +9,32 @@ public static class Voxelmetric
     {
 
         Vector3 pos = new Vector3(
-            MoveWithinBlock(hit.point.x, hit.normal.x, adjacent),
-            MoveWithinBlock(hit.point.y, hit.normal.y, adjacent),
-            MoveWithinBlock(hit.point.z, hit.normal.z, adjacent)
+            MoveWithinBlock(hit.point.x, hit.normal.x, Config.Env.BlockSize.x, adjacent ),
+            MoveWithinBlock(hit.point.y, hit.normal.y, Config.Env.BlockSize.y, adjacent ),
+            MoveWithinBlock(hit.point.z, hit.normal.z, Config.Env.BlockSize.z, adjacent )
             );
 
         return pos;
     }
 
-    static float MoveWithinBlock(float pos, float norm, bool adjacent = false)
+    static float MoveWithinBlock(float pos, float norm, float blockSize, bool adjacent = false )
     {
-        float minHalfBlock = Config.Env.BlockSize / 2 - 0.01f;
-        float maxHalfBlock = Config.Env.BlockSize / 2 + 0.01f;
+        float minHalfBlock = blockSize / 2 - 0.01f;
+        float maxHalfBlock = blockSize / 2 + 0.01f;
         //Because of float imprecision we can't guarantee a hit on the side of a
 
         //Get the distance of this position from the nearest block center
         //accounting for the size of the block
-        float offset = pos - ((int)(pos/Config.Env.BlockSize) * Config.Env.BlockSize);
+        float offset = pos - ((int)(pos/blockSize) * blockSize);
         if ((offset > minHalfBlock && offset < maxHalfBlock) || (offset < -minHalfBlock && offset > -maxHalfBlock))
         {
             if (adjacent)
             {
-                pos += (norm / 2 * Config.Env.BlockSize);
+                pos += (norm / 2 * blockSize);
             }
             else
             {
-                pos -= (norm / 2 * Config.Env.BlockSize);
+                pos -= (norm / 2 * blockSize);
             }
         }
 

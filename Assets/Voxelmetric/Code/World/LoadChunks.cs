@@ -51,7 +51,7 @@ public class LoadChunks : MonoBehaviour
                 new Vector3(chunkPos.x, 0, chunkPos.z),
                 new Vector3(transform.position.x, 0, transform.position.z));
 
-            if (distance > Config.Env.DistanceToDeleteChunks * Config.Env.BlockSize)
+            if (distance > Config.Env.DistanceToDeleteChunks * Config.Env.BlockSizeMagnitude)
                 chunksToDelete.Add(chunk.Key);
         }
 

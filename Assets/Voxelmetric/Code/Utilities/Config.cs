@@ -5,11 +5,14 @@ namespace Config
     public static class Env
     {
         public static int ChunkLoadRadius = 8; //how many chunks to load in each direction
+
         public static int ChunkSize = 16;
+
         public static int WorldMaxY = 64;
         public static int WorldMinY = -64;
 
-        public static float BlockSize = 1f;
+        public static Vector3 BlockSize = new Vector3( 1f, .25f, 1f );
+        public static float BlockSizeMagnitude = BlockSize.magnitude;
 
         public static float UpdateFrequency = 0.1f;
 

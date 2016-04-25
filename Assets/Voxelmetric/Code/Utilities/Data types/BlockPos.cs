@@ -60,13 +60,15 @@ public struct BlockPos
         return new BlockPos(this.x - pos.x, this.y - pos.y, this.z - pos.z);
     }
 
-    //BlockPos and Vector3 can be substituted for one another
-    public static implicit operator BlockPos(Vector3 v)
+  /// <summary>
+  /// BlockPos and Vector3 can be converted for one another
+  /// </summary>
+  public static implicit operator BlockPos(Vector3 v)
     {
         BlockPos blockPos = new BlockPos(
-            Mathf.RoundToInt(v.x / Config.Env.BlockSize),
-            Mathf.RoundToInt(v.y / Config.Env.BlockSize),
-            Mathf.RoundToInt(v.z / Config.Env.BlockSize)
+            Mathf.RoundToInt(v.x / Config.Env.BlockSize.x),
+            Mathf.RoundToInt(v.y / Config.Env.BlockSize.y),
+            Mathf.RoundToInt(v.z / Config.Env.BlockSize.z)
             );
 
         return blockPos;
@@ -74,7 +76,9 @@ public struct BlockPos
 
     public static implicit operator Vector3(BlockPos pos)
     {
-        return new Vector3(pos.x, pos.y, pos.z) * Config.Env.BlockSize;
+        return new Vector3( pos.x * Config.Env.BlockSize.x,
+                            pos.y * Config.Env.BlockSize.y,
+                            pos.z * Config.Env.BlockSize.z );
     }
 
     public static implicit operator BlockPos(Direction d)

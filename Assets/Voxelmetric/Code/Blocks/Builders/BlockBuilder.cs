@@ -177,7 +177,10 @@ public static class BlockBuilder
     {
         //Adding a tiny overlap between block meshes may solve floating point imprecision
         //errors causing pixel size gaps between blocks when looking closely
-        float halfBlock = (Config.Env.BlockSize / 2) + Config.Env.BlockFacePadding;
+        Vector3 halfBlock = new Vector3( (Config.Env.BlockSize.x / 2 ) + Config.Env.BlockFacePadding,
+                                         (Config.Env.BlockSize.y / 2 ) + Config.Env.BlockFacePadding,
+                                         (Config.Env.BlockSize.z / 2 ) + Config.Env.BlockFacePadding
+                                       );
 
         //Converting the position to a vector adjusts it based on block size and gives us real world coordinates for x, y and z
         Vector3 vPos = pos;
@@ -185,40 +188,40 @@ public static class BlockBuilder
         switch (direction)
         {
             case Direction.up:
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y + halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y + halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y + halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y + halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
                 break;
             case Direction.down:
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y - halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y - halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y - halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y - halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
                 break;
             case Direction.north:
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y - halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y + halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y + halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y - halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
                 break;
             case Direction.east:
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y - halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y + halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y + halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y - halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
                 break;
             case Direction.south:
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y - halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y + halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y + halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x + halfBlock.x, vPos.y - halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
                 break;
             case Direction.west:
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
-                meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y - halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y + halfBlock.y, vPos.z + halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y + halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
+                meshData.AddVertex(new Vector3(vPos.x - halfBlock.x, vPos.y - halfBlock.y, vPos.z - halfBlock.z), useCollisionMesh);
                 break;
             default:
                 Debug.LogError("Direction not recognized");
