@@ -1,10 +1,33 @@
 Robocay Task Notes
 ======================
+* Place character in voxel terrain
+    * Character is falling through level -- FIND OUT WHY
+        - fixed by adding 'BSPTree' component to Chunk
+           
+* Build basic UI
+* Test "SuperCharacterController" for character
+* Create soil types
+    * polluted
+    * cleared
+    * tilled
+    * plant
+    * tree
 
 Voxel
 --------------
-* finish tutorial
-* modify y-size to .33, or .25
+* Stop world auto-generation
+* Add ramp blocks
+    * automatically generate on height differences on dirt terrain
+* Kill wild grass generation
+* Figure out updater system in Voxelmetric
+* Build level design UI
+    * Choose tile type
+    * Place/remove tile
+    * DON'T need to get other object placement -- Unity can do this just fine
+* Investigate Update pattern
+
+[x] finish tutorial
+[x] modify y-size to .33, or .25
     * places to add scalar:
         * World.cs
             * CreateChunk at position, pos.y needs to be scaled when Instantiating

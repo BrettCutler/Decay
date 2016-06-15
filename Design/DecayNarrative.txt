@@ -1,0 +1,30 @@
+Decay Story
+---------------------
+[why does the human village have so little agency? How can we avoid infantilizing them?]
+- they are refugees
+- they have just moved into this area
+- they are responsible for waking you up, investigating
+- the land is too polluted so only you can safely dredge it
+
+
+[computer advisors named after candide characters?]
+[or, Gulliver's Travels characters[!]]
+- Gulliver's Travels gives away that they're worthless from the beginning
+    - but what we want is that they discover their thinking is limited
+
+[scene: player is leading human into home robo-base]
+[computers discourage this, and in fact begin telling obvious lies to stop it]
+
+CHARACTER
+-little girl-
+- appears early (first village visit?)
+    - as a child, growth after first time break will hammer home how world changes
+    - 'bicentennial man'-esque story (or that's just, CAN A ROBOT LOVE A MAN?)
+        - nope, scratch that, its a turrible idea
+[scene: player makes friends with little girl]
+lg: "..."
+lg: "oh!"
+lg: "hi! I haven't seen you before."
+lg: "I'm Anne. Who are you?"
+player: "..."
+lg: "oh. Well, ...it's pretty cool to have a robot friend. "

@@ -1,0 +1,289 @@
+Decay Overall Notes
+====================
+** JUST BECAUSE IT'S SIMULATED DOESN'T MAKE IT INTERESTING!! ***
+** WITHOUT PLAYER AGENCY & UNDERSTANDING, CHANGE IS MEANINGLESS **
+
+
+Prototype Requirements
+-----------------------
+- Simple 'maintenance' loop
+	- 3-5 'tasks' player can undertake
+		- destroy trees
+		- destroy rocks
+		- place road
+		- place fence
+		- till field
+		- plant seeds?
+		- fight
+	- player has energy gauge
+	- town with 3-10 NPCs
+		- dialogue system
+	- opening outside of town
+	- probably don't need random generation
+
+
+
+
+'zoning' vs hand-placing
+	- how much work do the townspeople do?
+	- in prototype, this can be automatic
+	 
+
+Touchstones
+---------------
+- Breath of Fire: Dragon Quarter
+    - oppressive mood from visible cost to each action
+        - even walking!
+    - totality of misery of situation without dry depths
+- Harvest Moon / Stardew Valley
+- Don't Starve
+- Chrono Trigger
+    - conception of Robo working for 1,000 years. In the blink of an eye, you meet him in the future...but now he's the elder
+- Souls
+    - multiple routes to go and exploration is constrained by difficulty
+        - except we're using player's energy efficiency and buildout of each route plus a little combat...!
+
+Visuals
+----------
+- import mupen-psx's fullscreen dither effect
+- rolling fog like Silent Hill
+- CRT shader I'm using in MAME
+- pixel-art textures
+- orange, green glows from computer terminals
+- swamp, dirt
+- color palette: based on SNES post-apocalypse
+- character design: trash can with tank treads
+	- Wall-E treads
+	- Robo (Chrono Trigger) chassis
+	- what kind of arms?
+- PSX-style square pixel font, in additive transparency
+- Play with reflections in low res
+    - even just some color matching would be nice
+
+
+UI
+-----------------
+- tile inspect function
+    - get a text description of each layer on the tile
+	   - ex: "Cabbage: a crop is growing. It will mature in 7 days and provide 5,000 kilocalories.
+		Tilled field: this ground is tilled and will support planted crops. The humans will automatically plant this field and nurture the crops.
+		""
+    - should this draw in corner along with decorative text?
+        - top-right
+        - flight games as example (Ace Combat 2)
+
+- villager text must look different from UI elements
+    - UI is ROBOT THOUGHTS, villager speech is human contact
+    - so, different font
+        - serif font?
+        - PSX's serif font: Silent Hill text (or general Survival Horror-style text)
+        - pixellated? or not, but noisy somehow
+    - without border? just text on bottom of screen, simple and basic
+
+- indicator that villagers have something new to say
+    - ellipses above head
+
+- 
+
+Biome simulation
+-----------------
+- land types:
+	- grassland
+		- grass
+		- flowers
+	- forest, deciduous
+		- deciduous tree
+		- fern
+	- forest, pine
+		- pine tree
+		- fern
+	- swamp
+		- mangrove tree
+		- lily
+		- NEEDS: water
+	- barren
+		- rocks
+		- trash to dig through?
+		- NEEDS: dig below topsoil
+			- can this be repaired back to support life?
+				- sure, dump topsoil on top
+	- computerized
+		- cables
+		- terminals
+		- NEEDS: power
+
+Craftables
+--------------
+- land-shaping buildings
+	- fence
+		- prevent natural growth from crossing its borders
+- workshops
+	- ethanol generator
+		- dump biomatter in hopper to produce electricity
+	- solar generator
+		- craft using mineral resources (sink)
+		- breaks after next long sleep?
+	- recharge station
+	- power lines
+		- string into generator from power source
+		- fat (arm-thick) cables that lay across ground
+			- ugh, need junction system to coexist with other art
+- transport
+    - conveyor & train tracks
+        - Minecraft, Dig 'N Rig, Factorio as touchstones
+        - seperate for player transport and resource transport?
+            - maybe separate cars, but same transport
+            - OR player can automatically hook treads to track and move at x3 speed
+
+Using 3D space
+----------------
+- water level simulation
+	- allows:
+		- drain swamp
+		- dam rivers
+		- flood
+	- as Minecraft, tile-based
+		- does Minecraft generate water by volume per source, or 'up to height' from source?
+		- so, do I make rivers from 'river spwan' spots with a limited water volume production?
+		- think  about this in real life: water is prodced yearly from mountains, then dispersed gradually
+			- so we're talking flow rate, not a cap
+			- so, if we simulate that, we have to model the water draining into (ocean?) eventually
+			- though, it'd be neat to let player flood themselves!
+
+Rest/Reset points
+------------------
+* On battery:
+	- battery is equivalent to Harvest Moon's stamina bar.
+		When it expires, you do to
+	- MAIN break is a period of years
+		- humans age up
+		- environment runs its simulation *many* cycles
+			- trees grow
+			- fences break down
+			- wars between human tribes?
+			- forests encroach/retreat
+			- do humans finish projects the robot started?
+			- human buildings go up/down
+				- need a simulation of economic value/decay?
+
+
+	- battery gets recharged
+
+- daily reset vs. long-term analogous to Harver Moon's months?
+- or, is it daily activities vs monthly events in Persona?
+	- as in, you can put off doing some tasks but really ought finish them before your reset point
+
+
+- how much of infrastructure breaks after long sleep?
+	- for example, solar panels automatically produce energy, but break after sleep.
+		- So player has to rebuild solar panel infrastructure each time
+		- so it's a tradeoff between investing the time/energy to build it and  reaping the benefits
+
+- probably need an external force to eventually force sleep
+	- otherwise, once players become self-sustaining, no more resets
+	- so: environmental factor?
+		- wild seasons create 'long dark', no sunlight to recharge?
+		- earth shakes, volcanic eruptions release plume
+			- symptomatic and suggestive of deeper trauma within the earth...
+				- is this a long-term player goal?
+		- ocean rises in seasonal storms
+			- provides opportunity to stand on cliff overlooking ocean and discuss...
+
+- player is gathering resources to extend 'active days' while playing before long-term shutdown
+	- so, as in a survival game (Don't Starve), there's a 'stabilization point' player is building towards
+		- stabilization and nothing else is achievable, but then player puts it out of reach again when they set higher goals: building up town, delving deeper
+
+- what if real time has to pass on long-term shutdown before player can play again?
+	- to literalize 'remote' connection to robot
+	- to make time passage *felt*
+
+
+Dungeoneering
+-------------------
+- venture into submerged ruins to uncover past, lost tech
+
+- treasures
+	- blueprints
+		- maybe a useful limiting factor on players advancing too early, and a good reward
+			- counter: reduces visibility into reward system
+				- well, player can download 'potential' plans seperately from earning right to build them
+	- personal upgrades
+		- do these persist?
+			- Yes: players need the sense of accomplishment and reward in a world otherwise so dark
+				- look at player chafing to item break systems in System Shock 2, Final Fantasy Legend (SaGa)
+
+- enemies
+    - enemy design *must* speak to history of world
+        - bio-mutants and crazee robots are traditonal, and nice 'n nutritious in this setting, but...
+            - a bit cliche, boring
+        - what were people striving towards when it collapsed? What were their hopes, fears?
+            - ex: Fallout mutants: can we engineer ourselves past our mistakes? Science past so we don't have to reckon with errors
+            - Searchers: creatures, machines built to search for answer 
+    - is it guarded, or overrun?
+        - guarded == intelligence to protect secrets
+            - governments' natural tendency towards secrecy and unthinking strength
+        - overrun -> speaks to decay in world, speaks to what has happened since
+            - bot searches for tech and materials
+
+- computer terminals
+    - recorded for later in UI
+    - trigger new dungeons
+    - trigger world-shaping changes
+        - open doors
+            - open a door in the ground, creating a cavern in the settlement
+                - a shortcut, but in the process it destroys your valuable work, or even settlers' lives
+        - re-activate useful machinery
+            - charging stations
+            - field tools
+                - pumps for water
+                - dams
+                - conveyors
+
+
+- visual design
+    - cluttered verticality like Vagrant story
+        - boxes, ladders, transportation, obvious light sources
+            - room based?
+                - maybe variable-sized rooms, like Link to the Past's overworld
+
+- options done with physical dipswitches
+    - as Galak-Z plan for real-world photo living room,
+        - game options occur in 'real world' with monitor displaying game world
+    - how obvious should this barrier be when game starts?
+        - probably not right away, but introduce when we need because it creates a mystery layer
+
+
+Beginning
+--------------------
+- wake up, short textual coontext
+	- explore nearby terminals for more
+- navigate through nearby empty environment
+- immediate goal: collect resources to build batteries/recharge power collectors
+- go through multiple failure cycles?
+	- as in, by the time player finds village they realize they've been starving for some time
+		- they might mention how many years ago they noticed/created the event that woke you
+
+- large rock? or some other non-human-fixable obstruction is cleared, and the player discovers the town
+
+Narrative
+--------------
+GOAL: show passage of time from immortal perspective
+
+- our take comprises 3 parts:
+    - a handful of strongly-sketched individual storylines
+    - simulation tracing tribal/civilizational story
+    - history & lore of world
+
+3 Faces
+--------------
+Computers in place of birth have twisted to form personalities and 'faces'
+    - columns of wires, cables able to be anthropomorphically interpreted
+    - offer conflicting advice and opinions based on personality
+    - give obfuscated clues to nature of setting
+        - they themselves don't know, of course, so observations are colored by their personalities
+    - contrast behavior and attitudes with humans
+        - "humans are a process"
+            - fulfilling a purporse
+            - [computer expresses most reductive, big-picture view of people]
+        - "humans are unpredictable"
+            - [other computer expresses unfathomable individual human complexity]

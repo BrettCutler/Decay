@@ -33,8 +33,8 @@ public class CameraFollowPlayer : MonoBehaviour
 
     AdjustDistance( zoomInput );
 
-    float rotateInput = Mathf.Max( Input.GetAxis( k_CameraRotateInputController ),
-                                   Input.GetAxis( k_CameraRotateInputMouse ) );
+    //float rotateInput = Mathf.Max( Input.GetAxis( k_CameraRotateInputController ),
+    //                               Input.GetAxis( k_CameraRotateInputMouse ) );
 
     transform.position = target.position;
 
@@ -45,7 +45,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     transform.position += target.up * m_Height;
 
-    Vector3 left = Vector3.Cross( target.forward, target.up );
+    //Vector3 left = Vector3.Cross( target.forward, target.up );
 
     transform.LookAt( target );
   }

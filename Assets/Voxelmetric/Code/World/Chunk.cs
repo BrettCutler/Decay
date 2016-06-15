@@ -7,6 +7,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshCollider))]
+[RequireComponent(typeof(BSPTree))]
 
 public class Chunk : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Chunk : MonoBehaviour
 
     MeshFilter filter;
     MeshCollider coll;
+    BSPTree bspTree; // needed for SuperCharacterController. Must be updated each time mesh changes.
 
     public World world;
     public BlockPos pos;
@@ -31,6 +33,7 @@ public class Chunk : MonoBehaviour
     {
         filter = gameObject.GetComponent<MeshFilter>();
         coll = gameObject.GetComponent<MeshCollider>();
+        bspTree = gameObject.GetComponent<BSPTree>();
 
         gameObject.GetComponent<Renderer>().material.mainTexture = Block.index.textureIndex.atlas;
     }
@@ -287,6 +290,8 @@ public class Chunk : MonoBehaviour
             mesh.RecalculateNormals();
 
             coll.sharedMesh = mesh;
+
+            bspTree.SetupBSPTree();
         }
     }
 

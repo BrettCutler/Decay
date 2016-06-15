@@ -92,8 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Distance: 5
-  m_DistanceMin: 0
-  m_DistanceMax: 0
+  m_DistanceMin: 5
+  m_DistanceMax: 10
   m_HeightToDistanceRatio: 0.8
   target: {fileID: 0}
 --- !u!124 &12481970

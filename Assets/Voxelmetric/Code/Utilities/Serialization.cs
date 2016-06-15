@@ -11,7 +11,6 @@ public static class Serialization
     public static string SaveLocation(string worldName)
     {
         string saveLocation = Config.Directories.SaveFolder + "/" + worldName + "/";
-
         if (!Directory.Exists(saveLocation))
         {
             Directory.CreateDirectory(saveLocation);

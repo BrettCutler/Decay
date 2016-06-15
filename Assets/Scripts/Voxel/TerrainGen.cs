@@ -7,7 +7,7 @@ namespace Voxel
   {
     private float m_StoneBaseHeight = -24f;
     private float m_StoneBaseNoise = 0.05f;
-    private float m_StoneBaseNoiseHeight = 4f;
+    //private float m_StoneBaseNoiseHeight = 4f;
 
     private float m_StoneMountainHeight = 48f;
     private float m_StoneMountainFrequency = 0.008f;

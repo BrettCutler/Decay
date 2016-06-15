@@ -4,7 +4,7 @@ namespace Config
 {
     public static class Env
     {
-        public static int ChunkLoadRadius = 8; //how many chunks to load in each direction
+        public static int ChunkLoadRadius = 2; //how many chunks to load in each direction
 
         public static int ChunkSize = 16;
 

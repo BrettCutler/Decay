@@ -13,6 +13,9 @@ public class BSPTree : MonoBehaviour {
     [SerializeField]
     bool drawMeshTreeOnStart;
 
+    [SerializeField]
+    bool setupOnAwake;
+
     public class Node
     {
         public Vector3 partitionPoint;
@@ -36,37 +39,43 @@ public class BSPTree : MonoBehaviour {
 
     void Awake()
     {
-        mesh = GetComponent<MeshCollider>().sharedMesh;
-
-        tris = mesh.triangles;
-        vertices = mesh.vertices;
-
-        vertexCount = mesh.vertices.Length;
-        triangleCount = mesh.triangles.Length / 3;
-
-        triangleNormals = new Vector3[triangleCount];
-
-        for (int i = 0; i < tris.Length; i += 3)
-        {
-            Vector3 normal = Vector3.Cross((vertices[tris[i + 1]] - vertices[tris[i]]).normalized, (vertices[tris[i + 2]] - vertices[tris[i]]).normalized).normalized;
-
-            triangleNormals[i / 3] = normal;
-        }
-
-        if (!drawMeshTreeOnStart)
-            BuildTriangleTree();
+        if( setupOnAwake )
+          SetupBSPTree();
     }
 
     void Start()
     {
         if (drawMeshTreeOnStart)
             BuildTriangleTree();
+  }
+
+  public void SetupBSPTree( )
+  {
+    mesh = GetComponent<MeshCollider>( ).sharedMesh;
+
+    tris = mesh.triangles;
+    vertices = mesh.vertices;
+
+    vertexCount = mesh.vertices.Length;
+    triangleCount = mesh.triangles.Length / 3;
+
+    triangleNormals = new Vector3[triangleCount];
+
+    for( int i = 0; i < tris.Length; i += 3 )
+    {
+      Vector3 normal = Vector3.Cross((vertices[tris[i + 1]] - vertices[tris[i]]).normalized, (vertices[tris[i + 2]] - vertices[tris[i]]).normalized).normalized;
+
+      triangleNormals[i / 3] = normal;
     }
 
-    /// <summary>
-    /// Returns the closest point on the mesh with respect to Vector3 point to
-    /// </summary>
-    public Vector3 ClosestPointOn(Vector3 to, float radius)
+    if( !drawMeshTreeOnStart )
+      BuildTriangleTree( );
+  }
+
+  /// <summary>
+  /// Returns the closest point on the mesh with respect to Vector3 point to
+  /// </summary>
+  public Vector3 ClosestPointOn(Vector3 to, float radius)
     {
         to = transform.InverseTransformPoint(to);
 
