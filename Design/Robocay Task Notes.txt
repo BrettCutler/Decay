@@ -1,11 +1,14 @@
 Robocay Task Notes
 ======================
-* Place character in voxel terrain
-    * Character is falling through level -- FIND OUT WHY
-        - fixed by adding 'BSPTree' component to Chunk
-           
-* Build basic UI
+X Place character in voxel terrain
 * Test "SuperCharacterController" for character
+    X Character is falling through level -- FIND OUT WHY
+        - fixed by adding 'BSPTree' component to Chunk
+    * Increase height character can auto-solve up (staircase height)
+
+* Fix lines between blocks
+
+* Build basic UI
 * Create soil types
     * polluted
     * cleared
