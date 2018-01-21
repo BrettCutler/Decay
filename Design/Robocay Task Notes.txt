@@ -1,12 +1,14 @@
 Robocay Task Notes
 ======================
 X Place character in voxel terrain
+
 * Test "SuperCharacterController" for character
     X Character is falling through level -- FIND OUT WHY
         - fixed by adding 'BSPTree' component to Chunk
     * Increase height character can auto-solve up (staircase height)
 
-* Fix lines between blocks
+X Fix lines between blocks
+    * As long as camera is in "Deferred" we're ok
 
 * Build basic UI
 * Create soil types
@@ -18,7 +20,9 @@ X Place character in voxel terrain
 
 Voxel
 --------------
-* Stop world auto-generation
+X Stop world auto-generation
+    - As long as we have a save file, this doesn't happen
+* Get dirt sides to draw?
 * Add ramp blocks
     * automatically generate on height differences on dirt terrain
 * Kill wild grass generation
@@ -48,5 +52,3 @@ Voxel
         * LoadChunks.cs
             * FindChunksToLoad(): transforms player's real position into worldPos index
                 * for some reason this seems to assume world's min, max yHeight rather that using player's position to offset...
-
-* Wrap all voxel classes in a namespace

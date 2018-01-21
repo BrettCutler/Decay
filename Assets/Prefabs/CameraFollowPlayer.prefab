@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &110224
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 428908}
+  - 20: {fileID: 2049224}
+  - 124: {fileID: 12468240}
+  - 92: {fileID: 9201732}
+  - 81: {fileID: 8144404}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &113454
 GameObject:
   m_ObjectHideFlags: 0
@@ -8,18 +27,56 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 450670}
-  - 20: {fileID: 2006706}
-  - 92: {fileID: 9237690}
-  - 124: {fileID: 12481970}
-  - 81: {fileID: 8141710}
   - 114: {fileID: 11478610}
   m_Layer: 0
   m_Name: CameraFollowPlayer
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &149980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 424890}
+  m_Layer: 0
+  m_Name: Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &424890
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149980}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4, z: -3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 428908}
+  m_Father: {fileID: 450670}
+  m_RootOrder: 0
+--- !u!4 &428908
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.11, z: -3.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 424890}
+  m_RootOrder: 0
 --- !u!4 &450670
 Transform:
   m_ObjectHideFlags: 1
@@ -29,31 +86,33 @@ Transform:
   m_LocalRotation: {x: 0.064484455, y: 0, z: 0, w: 0.9979187}
   m_LocalPosition: {x: 0, y: 2.11, z: -6.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_LocalEulerAnglesHint: {x: 7.3945, y: 0, z: 0}
+  m_Children:
+  - {fileID: 424890}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!20 &2006706
+--- !u!20 &2049224
 Camera:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 113454}
+  m_GameObject: {fileID: 110224}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.61960787, g: 0.6745098, b: 0.76862746, a: 0.019607844}
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.2
-  far clip plane: 5000
-  field of view: 90
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
   orthographic: 0
-  orthographic size: 4.5
-  m_Depth: -1
+  orthographic size: 5
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -66,19 +125,19 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!81 &8141710
+--- !u!81 &8144404
 AudioListener:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 113454}
+  m_GameObject: {fileID: 110224}
   m_Enabled: 1
---- !u!92 &9237690
+--- !u!92 &9201732
 Behaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 113454}
+  m_GameObject: {fileID: 110224}
   m_Enabled: 1
 --- !u!114 &11478610
 MonoBehaviour:
@@ -96,12 +155,12 @@ MonoBehaviour:
   m_DistanceMax: 10
   m_HeightToDistanceRatio: 0.8
   target: {fileID: 0}
---- !u!124 &12481970
+--- !u!124 &12468240
 Behaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 113454}
+  m_GameObject: {fileID: 110224}
   m_Enabled: 1
 --- !u!1001 &100100000
 Prefab:

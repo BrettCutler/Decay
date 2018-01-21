@@ -68,8 +68,6 @@ public class Chunk : MonoBehaviour
 
     void Update()
     {
-        
-
         if (GetFlag(Flag.markedForDeletion) && !GetFlag(Flag.busy))
         {
             ReturnChunkToPool();
@@ -293,6 +291,9 @@ public class Chunk : MonoBehaviour
 
             bspTree.SetupBSPTree();
         }
+
+        world.RemoveChunkFromWaitingToRender( this );
+        Debug.Log( "finish Chunk.RenderMesh at " + Time.time );
     }
 
     /// <summary>

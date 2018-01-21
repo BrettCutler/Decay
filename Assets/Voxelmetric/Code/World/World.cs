@@ -29,6 +29,11 @@ public class World : MonoBehaviour {
     TerrainGen terrainGen;
     public System.Random random;
 
+    public event System.Action OnInitialLoadComplete;
+    public int initialThreadsToFinish;
+    private bool initialChunksHaveFinishedRendering = false;
+    public HashSet<Chunk> chunksWaitingToRender = new HashSet<Chunk>();
+
     void Start()
     {
         //Makes the block index fetch all the BlockDefinition components
@@ -77,7 +82,10 @@ public class World : MonoBehaviour {
         //Add it to the chunks dictionary with the position as the key
         chunks.Add(pos, newChunk);
 
+        chunksWaitingToRender.Add( newChunk );
+
         if (Config.Toggle.UseMultiThreading) {
+            initialThreadsToFinish++;
             Thread thread = new Thread(() => { GenAndLoadChunk(newChunk); });
             thread.Start();
         }
@@ -102,11 +110,27 @@ public class World : MonoBehaviour {
             for (int i = Config.Env.WorldMinY; i < Config.Env.WorldMaxY; i += Config.Env.ChunkSize)
                 Serialization.Load(GetChunk(new BlockPos(chunk.pos.x, i, chunk.pos.z)));
 
+
             if (Config.Toggle.LightSceneOnStart)
                 BlockLight.ResetLightChunkColumn(this, chunk);
         }
 
         chunk.SetFlag(Chunk.Flag.terrainGenerated, true);
+
+        FinishInitialLoadThread( );
+    }
+
+    public void FinishInitialLoadThread()
+    {
+        initialThreadsToFinish--;
+
+        if( initialThreadsToFinish < 1 )
+        {
+            //if( OnInitialLoadComplete != null )
+            //{
+            //    OnInitialLoadComplete( );
+            //}
+        }
     }
 
     /// <summary>
@@ -237,6 +261,25 @@ public class World : MonoBehaviour {
             Chunk chunk = GetChunk(pos);
             if (chunk != null)
                 chunk.UpdateChunk();
+        }
+    }
+
+    public void RemoveChunkFromWaitingToRender( Chunk chunkScript )
+    {
+        Debug.Log( "RemoveChunksFromWaitingToRender, initialChunksHaveFinishedRendering = " + initialChunksHaveFinishedRendering + ", contains = " + chunksWaitingToRender.Contains( chunkScript ) );
+        if( !initialChunksHaveFinishedRendering && chunksWaitingToRender.Contains( chunkScript ) )
+        {
+            chunksWaitingToRender.Remove( chunkScript );
+
+            Debug.Log( chunksWaitingToRender.Count + " chunks remain" );
+
+            if( chunksWaitingToRender.Count < 1 )
+            {
+                if( OnInitialLoadComplete != null )
+                {
+                    OnInitialLoadComplete( );
+                }
+            }
         }
     }
 }

@@ -9,6 +9,8 @@ public class CameraFollowPlayer : MonoBehaviour
 
   public float m_HeightToDistanceRatio = .8f;
 
+  public float m_OrbitAngle = 0f;
+
   public Transform target;
 
   private const string k_CameraZoomInputController = "RightVertical";
@@ -38,7 +40,11 @@ public class CameraFollowPlayer : MonoBehaviour
 
     transform.position = target.position;
 
-    Vector3 distanceToPlayerForward = Vector3.ProjectOnPlane( transform.forward, target.up );
+    Vector3 orbitForward = Quaternion.Euler( 0f, m_OrbitAngle, 0f) * target.forward;
+
+    //Vector3 distanceToPlayerForward = Vector3.ProjectOnPlane( transform.forward, target.up );
+    Vector3 distanceToPlayerForward = Vector3.ProjectOnPlane( orbitForward, target.up );
+
     // if camera is situated directly above player, will lock into position
     // Therefore, don't allow Distance to drop below Height
     transform.position -= distanceToPlayerForward * Mathf.Max( m_Distance, m_Height );
